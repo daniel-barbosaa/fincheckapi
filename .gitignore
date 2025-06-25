@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+#personal
+/daily
+
 # Logs
 logs
 *.log

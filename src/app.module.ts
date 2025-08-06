@@ -10,13 +10,20 @@ import { BankAccountsModule } from './modules/bank-accounts/bank-accounts.module
 import { TransactionsModule } from './modules/transactions/transactions.module';
 
 @Module({
-  imports: [UsersModule, DatabaseModule, AuthModule, CategoriesModule, BankAccountsModule, TransactionsModule],
-  controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
+    imports: [
+        UsersModule,
+        DatabaseModule,
+        AuthModule,
+        CategoriesModule,
+        BankAccountsModule,
+        TransactionsModule,
+    ],
+    controllers: [],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard,
+        },
+    ],
 })
 export class AppModule {}

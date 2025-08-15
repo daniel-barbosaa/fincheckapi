@@ -41,7 +41,6 @@ export class TransactionsController {
         @Query('type', OptionalParseEnumPipe)
         type?: TransactionType,
     ) {
-        console.log(type);
         return this.transactionsService.findAllByUserId(userId, {
             month,
             year,

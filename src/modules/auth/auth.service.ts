@@ -8,7 +8,6 @@ import { UsersRepository } from 'src/shared/database/repositories/users.reposito
 import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignupDto } from './dto/signup';
-
 @Injectable()
 export class AuthService {
     constructor(
@@ -32,9 +31,9 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials.');
         }
 
-        const accesToken = await this.generateAccesToken(user.id);
+        const accessToken = await this.generateAccesToken(user.id);
 
-        return { accesToken };
+        return { accessToken };
     }
 
     async signup(signupDto: SignupDto) {
@@ -101,10 +100,10 @@ export class AuthService {
                 },
             },
         });
-        const accesToken = await this.generateAccesToken(user.id);
+        const accessToken = await this.generateAccesToken(user.id);
 
         return {
-            accesToken,
+            accessToken,
         };
     }
 

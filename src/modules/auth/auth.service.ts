@@ -8,6 +8,7 @@ import { UsersRepository } from 'src/shared/database/repositories/users.reposito
 import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignupDto } from './dto/signup';
+import { NewPasswordDto } from './dto/new-password';
 @Injectable()
 export class AuthService {
     constructor(
@@ -17,6 +18,7 @@ export class AuthService {
 
     async signin(signinDto: SigninDto) {
         const { email, password } = signinDto;
+
         const user = await this.usersRepo.findUnique({
             where: { email },
         });
@@ -100,11 +102,38 @@ export class AuthService {
                 },
             },
         });
+
         const accessToken = await this.generateAccesToken(user.id);
 
         return {
             accessToken,
         };
+    }
+
+    async changePassword(newPasswordDto: NewPasswordDto, userId) {
+        const { password, newPassword } = newPasswordDto;
+
+        const user = await this.usersRepo.findUnique({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            throw new UnauthorizedException('User not found...');
+        }
+
+        const isPasswordValid = await compare(password, user.password);
+
+        if (!isPasswordValid) {
+            throw new UnauthorizedException('Invalid credentials.');
+        }
+        const hashedPassword = await hash(newPassword, 12);
+
+        await this.usersRepo.update({
+            where: { id: userId },
+            data: { password: hashedPassword },
+        });
+
+        return 'Password updated successfully.';
     }
 
     private async generateAccesToken(userId: string) {

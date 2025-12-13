@@ -24,8 +24,13 @@
         "services:stop": "docker compose -f infra/docker/compose-dev.yaml --env-file .env stop",
         "services:down": "docker compose -f infra/docker/compose-dev.yaml --env-file .env down",
         "db:migrate": "prisma migrate deploy || prisma migrate dev",
+        "db:seed": "npx prisma db seed",
+        "db:reset": "npx prisma migrate reset",
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "typecheck": "tsc -b --noEmit"
+    },
+    "prisma": {
+        "seed": "tsx infra/database/seed-dev.ts"
     },
     "dependencies": {
         "@nestjs/common": "^11.0.1",
@@ -53,7 +58,7 @@
         "@types/bcrypt": "^5.0.2",
         "@types/express": "^5.0.0",
         "@types/jest": "^29.5.14",
-        "@types/node": "^22.10.7",
+        "@types/node": "^22.19.2",
         "@types/supertest": "^6.0.2",
         "eslint": "^9.18.0",
         "eslint-config-prettier": "^10.1.8",
@@ -67,7 +72,8 @@
         "ts-loader": "^9.5.2",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.7.3",
+        "tsx": "^4.21.0",
+        "typescript": "^5.8.3",
         "typescript-eslint": "^8.20.0"
     },
     "jest": {

@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+#personal
+/daily
+estudo-do-dia.MD
+
 # Logs
 logs
 *.log

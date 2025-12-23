@@ -9,6 +9,10 @@ async function bootstrap() {
     app.enableCors({
         origin: process.env.CORS_ORIGIN,
     });
-    await app.listen(process.env.PORT ?? 3001);
+    if (process.env.NODE_ENV !== 'production') {
+        await app.listen(process.env.PORT ?? 3001);
+    } else {
+        await app.init();
+    }
 }
 bootstrap();

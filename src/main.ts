@@ -10,10 +10,8 @@ async function bootstrap() {
         origin: process.env.CORS_ORIGIN?.split(',') || '*',
         credentials: true,
     });
-    if (process.env.NODE_ENV !== 'production') {
-        await app.listen(process.env.PORT ?? 3001);
-    } else {
-        await app.init();
-    }
+    const port = process.env.PORT ?? 3001;
+    await app.listen(port);
+    console.log(`Backend rodando na porta ${port}`);
 }
 bootstrap();

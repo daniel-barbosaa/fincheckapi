@@ -32,7 +32,7 @@ export class TransactionsService {
                 type,
                 date,
                 value,
-                backAccountId: bankAccountId,
+                bankAccountId: bankAccountId,
                 categoryId,
             },
         });
@@ -50,11 +50,20 @@ export class TransactionsService {
         return this.transactionsRepo.findMany({
             where: {
                 userId,
-                backAccountId: filters.bankAccountId,
+                bankAccountId: filters.bankAccountId,
                 type: filters.type,
                 date: {
                     gte: new Date(Date.UTC(filters.year, filters.month)),
                     lt: new Date(Date.UTC(filters.year, filters.month + 1)),
+                },
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                        icon: true,
+                    },
                 },
             },
         });
@@ -84,7 +93,7 @@ export class TransactionsService {
                 type,
                 date,
                 value,
-                backAccountId: bankAccountId,
+                bankAccountId: bankAccountId,
                 categoryId,
             },
         });

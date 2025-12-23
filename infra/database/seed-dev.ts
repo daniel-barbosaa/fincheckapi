@@ -71,7 +71,7 @@ async function seed() {
                 ...transaction,
                 userId: user.id,
                 categoryId: categories.id,
-                backAccountId: bankAccount.id,
+                bankAccountId: bankAccount.id,
             },
         });
     }

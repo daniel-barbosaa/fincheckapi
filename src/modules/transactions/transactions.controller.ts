@@ -19,11 +19,15 @@ import { ActiveUserId } from 'src/shared/decorators/activeUserId';
 import { OptionalParseUUIDPipe } from 'src/shared/pipes/OptionalParseUUIDPipe';
 import { TransactionType } from './entities/Transaction';
 import { OptionalParseEnumPipe } from 'src/shared/pipes/OptionalParseEnumPipe';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Transações')
 @Controller('transactions')
 export class TransactionsController {
     constructor(private readonly transactionsService: TransactionsService) {}
 
+    @ApiOperation({ summary: 'Cadastra nova transação' })
     @Post()
     create(
         @ActiveUserId() userId: string,
@@ -32,14 +36,14 @@ export class TransactionsController {
         return this.transactionsService.create(userId, createTransactionDto);
     }
 
+    @ApiOperation({ summary: 'Lista transações com filtros opcionais' })
     @Get()
     findAll(
         @ActiveUserId() userId: string,
         @Query('month', ParseIntPipe) month: number,
         @Query('year', ParseIntPipe) year: number,
         @Query('bankAccountId', OptionalParseUUIDPipe) bankAccountId: string,
-        @Query('type', OptionalParseEnumPipe)
-        type?: TransactionType,
+        @Query('type', OptionalParseEnumPipe) type?: TransactionType,
     ) {
         return this.transactionsService.findAllByUserId(userId, {
             month,
@@ -48,7 +52,7 @@ export class TransactionsController {
             type,
         });
     }
-
+    @ApiOperation({ summary: 'Atualiza transação pelo ID' })
     @Put(':transactionId')
     update(
         @ActiveUserId() userId: string,
@@ -61,7 +65,7 @@ export class TransactionsController {
             updateTransactionDto,
         );
     }
-
+    @ApiOperation({ summary: 'Deleta transação pelo ID' })
     @Delete(':transactionId')
     @HttpCode(HttpStatus.NO_CONTENT)
     remove(

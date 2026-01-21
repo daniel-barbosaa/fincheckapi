@@ -3,12 +3,12 @@ import {
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { SigninDto } from './dto/singin';
+import { SigninDto } from './dto/singin.dto';
 import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { SignupDto } from './dto/signup';
-import { NewPasswordDto } from './dto/new-password';
+import { SignupDto } from './dto/signup.dto';
+import { NewPasswordDto } from './dto/new-password.dto';
 @Injectable()
 export class AuthService {
     constructor(

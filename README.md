@@ -1,98 +1,164 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<img src="https://github.com/daniel-barbosaa/fincheck-frontend/blob/main/src/assets/Logo.svg" width="300px" height="300px" align="right"/>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Fincheck API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?logo=nestjs)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791?logo=postgresql)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 
-## Description
+_API responsável por toda a lógica de negócio, autenticação e persistência de dados do Fincheck._
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Sobre o projeto
 
-## Project setup
+A **Fincheck API** é o backend do aplicativo Fincheck, responsável por
+gerenciar usuários, autenticação, contas bancárias, transações financeiras
+e fornecer dados consolidados para o dashboard.
+
+A aplicação foi desenvolvida com foco em:
+
+- Arquitetura modular
+- Separação clara de responsabilidades
+- Segurança
+- Facilidade de manutenção e escalabilidade
+
+🔗 **API em produção:**  
+A API está publicada e é consumida diretamente pelo frontend.
+
+> ⚠️ A maioria das rotas requer autenticação via JWT.
+
+## Funcionalidades
+
+- Cadastro e autenticação de usuários (JWT)
+- Gerenciamento de contas bancárias
+- CRUD de despesas e receitas
+- Consolidação de dados financeiros
+- Filtros por período e tipo de transação
+- Validação de dados com schemas
+- Documentação automática com Swagger
+
+## Tecnologias utilizadas
+
+- **Node.js**
+- **TypeScript**
+- **NestJS**
+- **Prisma ORM**
+- **PostgreSQL**
+- **JWT**
+- **Zod**
+- **Swagger**
+- **Docker**
+
+## Como rodar o projeto
+
+### Pré-requisitos
+
+- Node.js 20+
+- Docker e Docker Compose
+- Yarn ou npm
+
+> ⚠️ Caso não tenha o Docker e o Node.js instalados,
+> instale-os antes de prosseguir, pois sem eles
+> não será possível rodar a aplicação.
+
+Guias de instalação:
+
+- [Instalar Node.js](https://www.youtube.com/watch?v=VYo7hV7ua0c)
+- [Instalar Docker](https://www.youtube.com/watch?v=qrvx6ivyrQw)
+
+### Passos
 
 ```bash
-$ yarn install
+# Clone o repositório
+git clone https://github.com/daniel-barbosaa/fincheck-backend
+
+# Acesse a pasta
+cd fincheck-backend
 ```
 
-## Compile and run the project
+### Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+# Variáveis ​​ambientais para o desenvolvimento local
+
+JWT_SECRET=supersecretkey
+
+# API
+API_BASE_URL=http://localhost
+API_PORT=3333
+
+# Database
+DB_HOST=localhost
+DB_USER=fincheck_user
+DB_PASSWORD=fincheck_password
+DB_PORT=5432
+DB_NAME=fincheck
+DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
+
+# CORS origin
+CORS_ORIGIN=http://localhost:*
+```
+
+### Subindo o banco e executando a aplicação
 
 ```bash
-# development
-$ yarn run start
+# Instala as dependências do projeto
+yarn install
 
-# watch mode
-$ yarn run start:dev
+# Sobe os serviços necessários (PostgreSQL via Docker)
+yarn services:up
 
-# production mode
-$ yarn run start:prod
+# Executa as migrations do banco de dados
+yarn migrate:dev
+
+# Popula o banco com dados iniciais (seed)
+yarn seed
+
+# Inicia a aplicação em modo desenvolvimento
+yarn dev
 ```
 
-## Run tests
+### A aplicação estará disponivel em:
 
-```bash
-# unit tests
-$ yarn run test
+[http://localhost:3333](http://localhost:3333)
 
-# e2e tests
-$ yarn run test:e2e
+### Documentação do swagger:
 
-# test coverage
-$ yarn run test:cov
+[http://localhost:3333/swagger](http://localhost:3333/swagger)
+
+## Estrutura de pastas
+
+A estrutura do projeto segue uma arquitetura modular,
+facilitando a escalabilidade e manutenção do código.
+
+```txt
+src/
+├─ modules/        # Módulos de domínio da aplicação
+│  ├─ auth/
+│  ├─ users/
+│  ├─ bank-accounts/
+│  ├─ transactions/
+│  └─ categories/
+│     ├─ dto/
+│     ├─ entities/
+│     └─ services/
+│
+├─ shared/         # Recursos compartilhados
+│  ├─ config/      # Configurações globais
+│  ├─ database/    # Prisma / conexão com banco
+│  ├─ pipes/       # Pipes globais
+│  └─ decorators/  # Decorators customizados
+│
+├─ swagger/        # Configuração da documentação
+│  └─ setup.ts
+│
+└─ main.ts         # Bootstrap da aplicação
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Cada módulo segue o mesmo padrão interno:
+DTOs para validação, Entities para o domínio
+e Services para as regras de negócio.
